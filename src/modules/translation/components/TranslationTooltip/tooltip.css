@@ -1,0 +1,35 @@
+.your-trigger-style {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+}
+
+.your-trigger-style:hover {
+    background: var(--alt);
+    transform: scaleX(1.05);
+}
+
+.translator-tooltip {
+    position: relative;
+    z-index: 1000;
+    width: 300px;
+    padding: 2rem 3rem;
+    background: var(--bg-primary);
+    color: var(--text-dark);
+    border: solid 2px var(--alt);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+}
+
+.tooltip-arrow {
+    fill: var(--alt);
+    z-index: 10;
+    /* цвет стрелки */
+}
