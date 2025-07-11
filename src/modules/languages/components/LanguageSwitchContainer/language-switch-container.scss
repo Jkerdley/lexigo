@@ -1,0 +1,11 @@
+.language-switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 20px;
+    max-height: 2rem;
+    &__logo {
+        height: 110%;
+    }
+}

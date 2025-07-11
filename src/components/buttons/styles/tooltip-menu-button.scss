@@ -1,0 +1,45 @@
+.tooltip-menu_container_button {
+    width: 1/3 * 100%;
+    height: 100%;
+    min-height: 30px;
+    padding-inline: 1rem;
+    box-shadow: inset -3px -7px 8px 0px rgba(0, 0, 0, 0.09);
+    background: var(--bg-transparent--alt-accent);
+    color: var(--text-light);
+    border: none;
+    z-index: 1100;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+
+    &.active {
+        background: none;
+        color: var(--text-dark);
+        box-shadow: none;
+        border-radius: none;
+    }
+    &:hover {
+        background: var(--bg-transparent-accent);
+        color: var(--text-light);
+    }
+    &:focus {
+        background: none;
+        color: var(--text-dark);
+        box-shadow: none;
+        border-radius: none;
+    }
+}
+
+.left {
+    box-shadow: inset -3px -7px 8px 0px rgba(0, 0, 0, 0.09);
+    border-radius: 0 0 10px 0;
+}
+
+.right {
+    box-shadow: inset 4px -3px 8px 0px rgba(0, 0, 0, 0.09);
+    border-radius: 0 0 0 10px;
+}
+
+.center {
+    box-shadow: inset 6px 0px 8px 0px rgba(0, 0, 0, 0.09);
+    border-radius: 0 0 10px 10px;
+}
