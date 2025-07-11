@@ -1,14 +1,12 @@
-import { TextAreaContent } from "../components/typography";
-import { Tooltip } from "../modules/translation/components";
-import "./styles/app.scss";
+import { Tooltip } from "./src/modules/translation/components/TranslationTooltip";
 function App() {
     return (
-        <main className="main-page__container">
+        <main>
             <h1 className="main-title">Welcome</h1>
             <img src="/public/LexiGo3.svg" alt="logo" />
             <p className="main-logo__text">Go translate</p>
-
             <Tooltip />
+
             <TextAreaContent />
         </main>
     );

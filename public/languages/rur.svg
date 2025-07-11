@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2020 (64-Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="78px" height="78px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 17100 17100"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:#0039A6}
+    .fil1 {fill:#D52B1E}
+    .fil2 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2467702498928">
+   <path class="fil0" d="M16700 11400l-16200 0c-300,-900 -500,-1900 -500,-2800 0,-1100 200,-2200 600,-3100l16000 0c300,900 500,2000 500,3100 0,900 -100,1900 -400,2800z"/>
+   <path class="fil1" d="M500 11400l16200 0c-1200,3300 -4400,5700 -8100,5700 -3800,0 -7000,-2400 -8100,-5700z"/>
+   <path class="fil2" d="M16600 5500l-16000 0c1200,-3200 4300,-5500 8000,-5500 3600,0 6700,2300 8000,5500z"/>
+  </g>
+ </g>
+</svg>
