@@ -6,9 +6,16 @@ import { TooltipTextArea } from "../../../../components/typography";
 
 interface TooltipProps {
     handleClick: () => void;
+    translatedText?: string | null;
+    isLoading?: boolean;
     style?: React.CSSProperties;
 }
-export const Tooltip = ({ handleClick, style }: TooltipProps) => (
+export const Tooltip = ({
+                            handleClick,
+                            style,
+                            translatedText,
+                            isLoading,
+}: TooltipProps) => (
     <Popover.Root>
         <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
             <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
@@ -17,7 +24,13 @@ export const Tooltip = ({ handleClick, style }: TooltipProps) => (
             <TooltipMenuButtons />
             <div className="translator-main-content_container">
                 <LanguageSwitchContainer />
-                <TooltipTextArea />
+                <TooltipTextArea
+                    value={
+                        isLoading ? 'Переводим…'
+                            : translatedText ? translatedText
+                                : 'Выделите текст'
+                }
+                />
             </div>
             <Popover.Arrow className="tooltip-arrow" />
         </Popover.Content>

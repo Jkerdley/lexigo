@@ -5,7 +5,6 @@ interface TooltipTextAreaProps {
 export const TooltipTextArea = ({ value }: TooltipTextAreaProps) => {
     return (
         <article className="tooltip-text-area">
-            Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более
             {value}
         </article>
     );
