@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import "./text-area-content.scss";
 import { Tooltip } from "../../../modules/translation/components";
-import { useTranslate } from "../../../modules/translation/hooks/useTranslation";
+import {useTranslate} from "../../../modules/translation/hooks/useTranslation.ts";
+import {useAppSelector} from "../../../core/store/store.ts";
+
 
 export const TextAreaContent = () => {
     const [buttonPosition, setButtonPosition] = useState({
@@ -10,10 +12,14 @@ export const TextAreaContent = () => {
         visible: false,
     });
 
+    const [translatedText, setTranslatedText] = useState<string | null>(null);
+
     const containerRef = useRef<HTMLDivElement>(null);
     const selectedTextRef = useRef("");
 
-    // const [translate, data, isLoading, isError, error] = useTranslate();
+    const autoPlayVoice = useAppSelector((state) => state.settings.autoPlayVoice);
+
+    const { translate, data, isLoading } = useTranslate(autoPlayVoice);
 
     const handleMouseUp = () => {
         const selection = window.getSelection();
@@ -41,8 +47,14 @@ export const TextAreaContent = () => {
 
     const handleSaveClick = () => {
         localStorage.setItem("selectedText", selectedTextRef.current);
-        // translate(selectedTextRef.current);
+        translate({text: selectedTextRef.current, target: "en"});
     };
+
+    useEffect(() => {
+        if (!isLoading && data?.translatedText) {
+            setTranslatedText(data.translatedText);
+        }
+    }, [isLoading, data]);
 
     return (
         <div className="text-area-content__container" ref={containerRef} onMouseUp={handleMouseUp}>
@@ -61,6 +73,8 @@ export const TextAreaContent = () => {
                         left: `${buttonPosition.left}px`,
                     }}
                     handleClick={handleSaveClick}
+                    translatedText={translatedText}
+                    isLoading={isLoading}
                 />
             )}
         </div>
