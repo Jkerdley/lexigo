@@ -1,5 +1,15 @@
-const main = () => {
-    return <div></div>;
-};
+import { TextAreaContent } from "../components/typography";
+import { Tooltip } from "../modules/translation/components";
+import "./main-page.scss";
+export const Main = () => {
+    return (
+        <main className="main-page__container">
+            <h1 className="main-title">Welcome</h1>
+            <img src="/LexiGo3.svg" alt="logo" />
+            <p className="main-logo__text"></p>
 
-export default main;
+            <TextAreaContent />
+            <Tooltip />
+        </main>
+    );
+};
