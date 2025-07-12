@@ -3,9 +3,14 @@ import "./Tooltip.scss";
 import TooltipMenuButtons from "../TooltipMenuButtons/TooltipMenuButtons";
 import { LanguageSwitchContainer } from "../../../languages/components";
 import { TooltipTextArea } from "../../../../components/typography";
-export const Tooltip = () => (
+
+interface TooltipProps {
+    handleClick: () => void;
+    style?: React.CSSProperties;
+}
+export const Tooltip = ({ handleClick, style }: TooltipProps) => (
     <Popover.Root>
-        <Popover.Trigger className="popover-trigger">
+        <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
             <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
         </Popover.Trigger>
         <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
