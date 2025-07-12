@@ -3,6 +3,7 @@ import "./Tooltip.scss";
 import TooltipMenuButtons from "../TooltipMenuButtons/TooltipMenuButtons";
 import { LanguageSwitchContainer } from "../../../languages/components";
 import { TooltipTextArea } from "../../../../components/typography";
+import { Outlet } from "react-router-dom";
 export const Tooltip = () => (
     <Popover.Root>
         <Popover.Trigger className="popover-trigger">
@@ -13,6 +14,7 @@ export const Tooltip = () => (
             <div className="translator-main-content_container">
                 <LanguageSwitchContainer />
                 <TooltipTextArea />
+                <Outlet />
             </div>
             <Popover.Arrow className="tooltip-arrow" />
         </Popover.Content>
