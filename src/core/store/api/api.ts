@@ -1,1 +1,1 @@
-export const api = {};
+export { api } from '../../../modules/translation/api/service';
