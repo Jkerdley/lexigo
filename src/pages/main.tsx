@@ -1,5 +1,4 @@
 import { TextAreaContent } from "../components/typography";
-import { Tooltip } from "../modules/translation/components";
 import "./main-page.scss";
 export const Main = () => {
     return (
@@ -7,9 +6,7 @@ export const Main = () => {
             <h1 className="main-title">Welcome</h1>
             <img src="/LexiGo3.svg" alt="logo" />
             <p className="main-logo__text"></p>
-
             <TextAreaContent />
-            <Tooltip />
         </main>
     );
 };
