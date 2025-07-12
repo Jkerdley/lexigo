@@ -1,17 +1,7 @@
-import { TextAreaContent } from "../components/typography";
-import { Tooltip } from "../modules/translation/components";
+import { Main } from "../pages";
 import "./styles/app.scss";
 function App() {
-    return (
-        <main className="main-page__container">
-            <h1 className="main-title">Welcome</h1>
-            <img src="/public/LexiGo3.svg" alt="logo" />
-            <p className="main-logo__text">Go translate</p>
-
-            <Tooltip />
-            <TextAreaContent />
-        </main>
-    );
+    return <Main />;
 }
 
 export default App;
