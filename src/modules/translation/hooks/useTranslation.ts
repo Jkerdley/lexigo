@@ -29,6 +29,7 @@ export const useTranslate = (autoPlayVoice = false) => {
         translate: debounced,
         data: result.data as TranslateResponse | undefined,
         isLoading: result.isLoading,
+        isSuccess: result.isSuccess,
         isError: result.isError,
         error: result.error,
     };

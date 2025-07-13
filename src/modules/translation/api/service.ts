@@ -5,6 +5,7 @@ export interface TranslateRequest {
     target?: string; // 'ru' | 'en' | ...
     source?: string; // ''  → авто-detect
     speak?: boolean; // true → audioContent
+    gender?: 'FEMALE' | 'MALE' | 'NEUTRAL';
 }
 
 export interface TranslateResponse {
