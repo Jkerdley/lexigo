@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import { TextAreaContent } from "../components/typography";
 import "./main-page.scss";
 export const Main = () => {
@@ -8,7 +7,6 @@ export const Main = () => {
             <img src="/LexiGo3.svg" alt="logo" />
             <p className="main-logo__text"></p>
             <TextAreaContent />
-            <Outlet />
         </main>
     );
 };
