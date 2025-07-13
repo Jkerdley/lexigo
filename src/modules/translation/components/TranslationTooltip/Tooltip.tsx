@@ -4,11 +4,9 @@ import TooltipMenuButtons from "../TooltipMenuButtons/TooltipMenuButtons";
 import { LanguageSwitchContainer } from "../../../languages/components";
 import { TooltipTextArea } from "../../../../components/typography";
 import { Outlet } from "react-router-dom";
-import type { TranslateRequest } from "../../api/service";
 import { OptionsBar } from "../../../settings";
 
 interface TooltipProps {
-    translateMutation: (payload: TranslateRequest) => void;
     handleClick: () => void;
     isLoading?: boolean;
     style?: React.CSSProperties;
@@ -16,7 +14,7 @@ interface TooltipProps {
     children?: React.ReactNode;
 }
 export const Tooltip = (props: TooltipProps) => {
-    const { translateMutation, handleClick, isLoading, style, showTrigger, children } = props;
+    const { handleClick, style, showTrigger } = props;
     return (
         <Popover.Root>
             {showTrigger && (
@@ -28,16 +26,8 @@ export const Tooltip = (props: TooltipProps) => {
             <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
                 <TooltipMenuButtons />
                 <div className="translator-main-content_container">
-                    <LanguageSwitchContainer isAbleToSwitch translate={translateMutation} />
-                    <TooltipTextArea
-                        value={
-                            isLoading
-                                ? "Переводим…"
-                                : children
-                                ? children.toString()
-                                : "Ошибка: Выделите текст"
-                        }
-                    />
+                    <LanguageSwitchContainer isAbleToSwitch />
+                    <TooltipTextArea/>
                     <OptionsBar />
                     <Outlet />
                 </div>

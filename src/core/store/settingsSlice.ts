@@ -24,5 +24,5 @@ const settingsSlice = createSlice({
     },
 });
 
-export const { toggleAutoPlay } = settingsSlice.actions;
+export const { toggleAutoPlay, setGender } = settingsSlice.actions;
 export default persistReducer({ key: 'settings', storage }, settingsSlice.reducer);

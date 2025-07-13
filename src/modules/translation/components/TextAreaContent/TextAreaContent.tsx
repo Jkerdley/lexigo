@@ -1,7 +1,7 @@
 import "./text-area-content.scss";
 import { Tooltip } from "..";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslate } from "../../hooks/useTranslation";
 import { useAppSelector } from "../../../../core/store/store";
 import { useClickOutside } from "../../../../core/hooks/useClickOutside";
@@ -10,13 +10,13 @@ export const TextAreaContent = () => {
     const [selection, setSelection] = useState<string>("");
     const [popoverOpen, setPopoverOpen] = useState(false);
     const [coords, setCoords] = useState({ x: 0, y: 0 });
-    const [translatedText, setTranslatedText] = useState<string>("");
 
     const textRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const autoPlayVoice = useAppSelector((s) => s.settings.autoPlayVoice);
-    const { translate, data, isLoading, isSuccess } = useTranslate(autoPlayVoice);
+    const gender = useAppSelector((s) => s.settings.gender);
+    const { translate, isLoading } = useTranslate(autoPlayVoice);
 
     const showTrigger = !!selection;
 
@@ -28,12 +28,6 @@ export const TextAreaContent = () => {
         },
         showTrigger || popoverOpen
     );
-
-    useEffect(() => {
-        if (isSuccess && data?.translatedText) {
-            setTranslatedText(data.translatedText);
-        }
-    }, [isSuccess, data]);
 
     const onTextSelection = () => {
         const sel = window.getSelection()?.toString().trim() || "";
@@ -53,7 +47,7 @@ export const TextAreaContent = () => {
     };
 
     const onTriggerClick = () => {
-        translate({ text: selection, target: "ru" });
+        translate({ text: selection, target: "ru", gender, speak: true});
         setPopoverOpen(true);
     };
 
@@ -87,13 +81,11 @@ export const TextAreaContent = () => {
             {(showTrigger || popoverOpen) && (
                 <div ref={wrapperRef}>
                     <Tooltip
-                        translateMutation={translate}
                         showTrigger={showTrigger}
                         style={{ position: "absolute", left: coords.x, top: coords.y }}
                         isLoading={isLoading}
                         handleClick={onTriggerClick}
                     >
-                        {translatedText}
                     </Tooltip>
                 </div>
             )}
