@@ -4,6 +4,7 @@ import { persistReducer, persistStore  } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
 import {type TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import settingsReducer from '../store/settingsSlice';
+import currentTranslationReducer from '../../modules/translation/store/translationSlice';
 
 const persistConfig = {
     key: "root",
@@ -16,6 +17,7 @@ const persistedSettings = settingsReducer;
 const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
     settings: persistedSettings,
+    currentTranslation: currentTranslationReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
