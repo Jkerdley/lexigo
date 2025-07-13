@@ -1,68 +1,92 @@
-import { useRef, useState } from "react";
 import "./text-area-content.scss";
 import { Tooltip } from "../../../modules/translation/components";
+
+import { useEffect, useRef, useState } from "react";
 import { useTranslate } from "../../../modules/translation/hooks/useTranslation";
+import { useAppSelector } from "../../../core/store/store";
+import { useClickOutside } from "../../../core/hooks/useClickOutside";
 
 export const TextAreaContent = () => {
-    const [buttonPosition, setButtonPosition] = useState({
-        top: 0,
-        left: 0,
-        visible: false,
-    });
+    const [selection, setSelection] = useState<string>("");
+    const [popoverOpen, setPopoverOpen] = useState(false);
+    const [coords, setCoords] = useState({ x: 0, y: 0 });
+    const [translatedText, setTranslatedText] = useState<string>("");
 
-    const containerRef = useRef<HTMLDivElement>(null);
-    const selectedTextRef = useRef("");
+    const textRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
-    // const [translate, data, isLoading, isError, error] = useTranslate();
+    const autoPlayVoice = useAppSelector((s) => s.settings.autoPlayVoice);
+    const { translate, data, isLoading } = useTranslate(autoPlayVoice);
 
-    const handleMouseUp = () => {
-        const selection = window.getSelection();
-        const selectedText = selection?.toString().trim() || "";
+    const showTrigger = !!selection;
 
-        if (!selectedText) {
-            setButtonPosition((prev) => ({ ...prev, visible: false }));
+    useClickOutside(
+        [textRef, wrapperRef],
+        () => {
+            setPopoverOpen(false);
+            setSelection("");
+        },
+        showTrigger || popoverOpen
+    );
+
+    useEffect(() => {
+        if (!isLoading && data?.translatedText) {
+            setTranslatedText(data.translatedText);
+        }
+    }, [isLoading, data]);
+
+    const onTextSelection = () => {
+        const sel = window.getSelection()?.toString().trim() || "";
+        if (!sel) {
+            setSelection("");
             return;
         }
+        const range = window.getSelection()!.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        const parentRect = textRef.current!.getBoundingClientRect();
 
-        selectedTextRef.current = selectedText;
-
-        const range = selection?.getRangeAt(0);
-        if (!range || !containerRef.current) return;
-
-        const position = range.getBoundingClientRect();
-        const containerPosition = containerRef.current.getBoundingClientRect();
-
-        setButtonPosition({
-            top: position.top - containerPosition.top - 36,
-            left: position.left - containerPosition.left + position.width / 2,
-            visible: true,
+        setCoords({
+            x: rect.left - parentRect.left + rect.width / 2,
+            y: rect.top - parentRect.top - 10,
         });
+        setSelection(sel);
     };
 
-    const handleSaveClick = () => {
-        localStorage.setItem("selectedText", selectedTextRef.current);
-        // translate(selectedTextRef.current);
+    const onTriggerClick = () => {
+        translate({ text: selection, target: "en" });
+        setPopoverOpen(true);
     };
 
     return (
-        <div className="text-area-content__container" ref={containerRef} onMouseUp={handleMouseUp}>
-            Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более
-            менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных
-            выступлений в домашних условиях. При создании генератора мы использовали небезизвестный
-            универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти
-            предложений в абзаце, что позволяет сделать текст более привлекательным и живым для
-            визуально-слухового восприятия. По своей сути рыбатекст является альтернативой традиционному lorem
-            ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст.
-            {buttonPosition.visible && (
-                <Tooltip
-                    style={{
-                        position: "absolute",
-                        top: `${buttonPosition.top}px`,
-                        left: `${buttonPosition.left}px`,
-                    }}
-                    handleClick={handleSaveClick}
-                />
+        <section className="text-area-content__container">
+            <div ref={textRef} className="text-area-content__container__text" onMouseUp={onTextSelection}>
+                Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев
+                более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык
+                публичных выступлений в домашних условиях. При создании генератора мы использовали
+                небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух
+                до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для
+                визуально-слухового восприятия. По своей сути рыбатекст является альтернативой традиционному
+                lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст.
+                Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев
+                более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык
+                публичных выступлений в домашних условиях. При создании генератора мы использовали
+                небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух
+                до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для
+                визуально-слухового восприятия. По своей сути рыбатекст является альтернативой традиционному
+                lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст.
+            </div>
+
+            {(showTrigger || popoverOpen) && (
+                <div ref={wrapperRef}>
+                    <Tooltip
+                        showTrigger={showTrigger}
+                        style={{ position: "absolute", left: coords.x, top: coords.y }}
+                        translatedText={translatedText}
+                        isLoading={isLoading}
+                        handleClick={onTriggerClick}
+                    />
+                </div>
             )}
-        </div>
+        </section>
     );
 };
