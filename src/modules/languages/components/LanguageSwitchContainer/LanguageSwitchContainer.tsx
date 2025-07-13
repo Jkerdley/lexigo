@@ -7,7 +7,6 @@ import { useAppSelector } from "../../../../core/store/store";
 
 import { useTranslate } from "../../../translation/hooks/useTranslation.ts";
 
-
 interface Props {
     isAbleToSwitch?: boolean;
 }
@@ -19,7 +18,6 @@ export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
     const autoPlayVoice = useAppSelector((s) => s.settings.autoPlayVoice);
 
     const { translate } = useTranslate(autoPlayVoice);
-
 
     const switchLanguage = () => {
         setSourceLanguage(targetLanguage);

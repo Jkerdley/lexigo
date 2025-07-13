@@ -47,7 +47,7 @@ export const TextAreaContent = () => {
     };
 
     const onTriggerClick = () => {
-        translate({ text: selection, target: "ru", gender, speak: true});
+        translate({ text: selection, target: "ru", gender, speak: true });
         setPopoverOpen(true);
     };
 
@@ -85,8 +85,7 @@ export const TextAreaContent = () => {
                         style={{ position: "absolute", left: coords.x, top: coords.y }}
                         isLoading={isLoading}
                         handleClick={onTriggerClick}
-                    >
-                    </Tooltip>
+                    ></Tooltip>
                 </div>
             )}
         </section>
