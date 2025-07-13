@@ -5,7 +5,18 @@ import { LanguageSwitchContainer } from "../../../languages/components";
 import { TooltipTextArea } from "../../../../components/typography";
 import { Outlet } from "react-router-dom";
 
-export const Tooltip = () => (
+interface TooltipProps {
+    handleClick: () => void;
+    translatedText?: string | null;
+    isLoading?: boolean;
+    style?: React.CSSProperties;
+}
+export const Tooltip = ({
+                            handleClick,
+                            style,
+                            translatedText,
+                            isLoading,
+                        }: TooltipProps) => (
     <Popover.Root>
         <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
             <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
@@ -14,7 +25,13 @@ export const Tooltip = () => (
             <TooltipMenuButtons />
             <div className="translator-main-content_container">
                 <LanguageSwitchContainer />
-                <TooltipTextArea />
+                <TooltipTextArea
+                    value={
+                        isLoading ? 'Переводим…'
+                            : translatedText ? translatedText
+                                : 'Выделите текст'
+                    }
+                />
                 <Outlet />
             </div>
             <Popover.Arrow className="tooltip-arrow" />

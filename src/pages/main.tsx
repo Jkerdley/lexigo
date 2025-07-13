@@ -8,7 +8,6 @@ export const Main = () => {
             <img src="/LexiGo3.svg" alt="logo" />
             <p className="main-logo__text"></p>
             <TextAreaContent />
-            <Tooltip />
             <Outlet />
         </main>
     );
