@@ -5,6 +5,7 @@ export interface Current {
     original: string;
     from: string;
     to: string;
+    gender?: "FEMALE" | "MALE" | "NEUTRAL";
     translated: string;
     audio?: string;
     ts: number;
@@ -21,12 +22,13 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder.addMatcher(api.endpoints.translate.matchFulfilled, (state, { meta, payload }) => {
             const args = (meta.arg as { originalArgs: TranslateRequest }).originalArgs;
-            const { text, source = "", target = "ru" } = args;
+            const { text, source = '', target = 'ru', gender = 'FEMALE' } = args;
 
             state.current = {
                 original: text,
                 from: source,
                 to: target,
+                gender,
                 translated: payload.translatedText,
                 audio: payload.audioContent,
                 ts: Date.now(),

@@ -4,16 +4,17 @@ import "./language-switch-container.scss";
 import { LANGUAGES } from "../../constants/languages";
 
 import { useAppSelector } from "../../../../core/store/store";
-import { type TranslateRequest } from "../../../translation/api/service";
+import {useTranslateMutation} from "../../../translation/api/service";
 
 interface Props {
-    translate: (payload: TranslateRequest) => void;
     isAbleToSwitch?: boolean;
 }
-export const LanguageSwitchContainer = ({ translate, isAbleToSwitch }: Props) => {
+export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
     const [sourceLanguage, setSourceLanguage] = useState<string>("EN");
     const [targetLanguage, setTargetLanguage] = useState<string>("RU");
     const currentTranslation = useAppSelector((state) => state.currentTranslation.current);
+    const gender = useAppSelector((s) => s.settings.gender);
+    const [translate] = useTranslateMutation();
 
     const switchLanguage = () => {
         setSourceLanguage(targetLanguage);
@@ -24,6 +25,8 @@ export const LanguageSwitchContainer = ({ translate, isAbleToSwitch }: Props) =>
                 text: currentTranslation.original,
                 target: sourceLanguage,
                 source: targetLanguage,
+                speak: true,
+                gender
             });
         }
     };
@@ -43,6 +46,8 @@ export const LanguageSwitchContainer = ({ translate, isAbleToSwitch }: Props) =>
                     text: currentTranslation.original,
                     target: newLanguage,
                     source: sourceLanguage,
+                    speak: true,
+                    gender
                 });
             }
         }
