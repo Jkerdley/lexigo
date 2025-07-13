@@ -4,7 +4,9 @@ import "./language-switch-container.scss";
 import { LANGUAGES } from "../../constants/languages";
 
 import { useAppSelector } from "../../../../core/store/store";
+
 import { useTranslate } from "../../../translation/hooks/useTranslation.ts";
+
 
 interface Props {
     isAbleToSwitch?: boolean;
@@ -15,7 +17,9 @@ export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
     const currentTranslation = useAppSelector((state) => state.currentTranslation.current);
     const gender = useAppSelector((s) => s.settings.gender);
     const autoPlayVoice = useAppSelector((s) => s.settings.autoPlayVoice);
+
     const { translate } = useTranslate(autoPlayVoice);
+
 
     const switchLanguage = () => {
         setSourceLanguage(targetLanguage);
