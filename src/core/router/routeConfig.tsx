@@ -3,7 +3,6 @@ import type { RouteProps } from "react-router-dom";
 import { TranslatePage } from "../../pages/translatePage";
 import { HistoryList } from "../../modules/history/components/HistoryList/HistoryList";
 
-
 export enum AppRoutes {
     MAIN = "main",
     TRANSLATION = "translation",
@@ -21,7 +20,7 @@ export const RoutePath: Record<AppRoutes, string> = {
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
-        element: <TranslatePage />
+        element: <TranslatePage />,
     },
     [AppRoutes.TRANSLATION]: {
         path: RoutePath.translation,
@@ -33,6 +32,6 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath["not-found"],
-        element: ""
+        element: "",
     },
 };
