@@ -37,7 +37,7 @@ export const Tooltip = (props: TooltipProps) => {
                                 : "Ошибка: Выделите текст"
                         }
                     />
-                    <Outlet />
+                    {/* <Outlet /> */}
                 </div>
                 <Popover.Arrow className="tooltip-arrow" />
             </Popover.Content>
