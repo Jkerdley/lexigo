@@ -1,7 +1,10 @@
 .custom-select-container {
     position: relative;
-    width: 175px;
+    width: 12vw;
     z-index: 1100;
+    @media (max-width: 1080px) {
+        width: auto;
+    }
 }
 
 .custom-select-header {
@@ -34,6 +37,12 @@
     }
     .language-title {
         margin-bottom: 2px;
+        @media (max-width: 1280px) {
+            font-size: 12px;
+        }
+        @media (max-width: 1080px) {
+            display: none;
+        }
     }
 }
 
@@ -56,7 +65,7 @@
 .custom-option {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 10px 10px;
     cursor: pointer;
     transition: background 0.2s;
 
@@ -66,6 +75,12 @@
         margin-right: 10px;
         border-radius: 50%;
         object-fit: cover;
+    }
+
+    span {
+        @media (max-width: 1080px) {
+            display: none;
+        }
     }
 
     &:hover {
@@ -78,6 +93,15 @@
     &:checked {
         background: var(--accent);
     }
+
+    @media (max-width: 1280px) {
+        font-size: 14px;
+    }
+}
+
+.custom-option.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .custom-select-container[data-open="true"] .arrow {

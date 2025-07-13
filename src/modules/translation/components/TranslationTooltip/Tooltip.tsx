@@ -7,29 +7,38 @@ import { Outlet } from "react-router-dom";
 
 interface TooltipProps {
     handleClick: () => void;
-    translatedText?: string | null;
     isLoading?: boolean;
     style?: React.CSSProperties;
     showTrigger?: boolean;
+    children?: React.ReactNode;
 }
-export const Tooltip = ({ showTrigger, handleClick, style, translatedText, isLoading }: TooltipProps) => (
-    <Popover.Root>
-        {showTrigger && (
-            <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
-                <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
-            </Popover.Trigger>
-        )}
+export const Tooltip = (props: TooltipProps) => {
+    const { handleClick, isLoading, style, showTrigger, children } = props;
+    return (
+        <Popover.Root>
+            {showTrigger && (
+                <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
+                    <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
+                </Popover.Trigger>
+            )}
 
-        <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
-            <TooltipMenuButtons />
-            <div className="translator-main-content_container">
-                <LanguageSwitchContainer />
-                <TooltipTextArea
-                    value={isLoading ? "Переводим…" : translatedText ? translatedText : "Выделите текст"}
-                />
-                <Outlet />
-            </div>
-            <Popover.Arrow className="tooltip-arrow" />
-        </Popover.Content>
-    </Popover.Root>
-);
+            <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
+                <TooltipMenuButtons />
+                <div className="translator-main-content_container">
+                    <LanguageSwitchContainer />
+                    <TooltipTextArea
+                        value={
+                            isLoading
+                                ? "Переводим…"
+                                : children
+                                ? children.toString()
+                                : "Ошибка: Выделите текст"
+                        }
+                    />
+                    <Outlet />
+                </div>
+                <Popover.Arrow className="tooltip-arrow" />
+            </Popover.Content>
+        </Popover.Root>
+    );
+};

@@ -1,1 +1,1 @@
-export { api } from '../../../modules/translation/api/service';
+export { api } from "../../../modules/translation/api/service";

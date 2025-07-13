@@ -2,10 +2,19 @@ import { useState, useRef, useEffect } from "react";
 import { LANGUAGES } from "../../constants/languages";
 import "./language-selector.scss";
 
-export const LanguageSelector = () => {
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("RU");
+interface Props {
+    language: string;
+    callback: (newLanguage: string) => void;
+    disabledLanguages?: string[];
+}
+export const LanguageSelector = ({ language, callback, disabledLanguages = [] }: Props) => {
+    const [selectedLanguage, setSelectedLanguage] = useState<string>(language);
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setSelectedLanguage(language);
+    }, [language]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -20,21 +29,17 @@ export const LanguageSelector = () => {
         };
     }, []);
 
-    const selectedLang = LANGUAGES.find((lang) => lang.id === selectedLanguage);
-
     return (
         <div className="custom-select-container" ref={dropdownRef}>
             <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)}>
-                {selectedLang && (
-                    <>
-                        <img
-                            src={selectedLang.imgRounded}
-                            alt={selectedLang.title}
-                            className="language-flag"
-                        />
-                        <span className="language-title">{selectedLang.title}</span>
-                    </>
-                )}
+                <img
+                    src={LANGUAGES.find((l) => l.id === selectedLanguage)?.imgRounded}
+                    alt={selectedLanguage}
+                    className="language-flag"
+                />
+                <span className="language-title">
+                    {LANGUAGES.find((l) => l.id === selectedLanguage)?.title}
+                </span>
                 <img className="arrow" src="/downarrow.svg" alt="Выбрать язык" />
             </div>
 
@@ -43,10 +48,15 @@ export const LanguageSelector = () => {
                     {LANGUAGES.map((language) => (
                         <div
                             key={language.id}
-                            className="custom-option"
+                            className={`custom-option ${
+                                disabledLanguages.includes(language.id) ? "disabled" : ""
+                            }`}
                             onClick={() => {
-                                setSelectedLanguage(language.id);
-                                setIsOpen(false);
+                                if (!disabledLanguages.includes(language.id)) {
+                                    setSelectedLanguage(language.id);
+                                    callback(language.id);
+                                    setIsOpen(false);
+                                }
                             }}
                         >
                             <img src={language.imgRounded} alt={language.title} className="language-flag" />

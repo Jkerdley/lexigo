@@ -1,11 +1,11 @@
 export const LANGUAGES: Language[] = [
-    { id: "RU", title: "Русский", img: "/languages/ru.svg", imgRounded: "/languages/rur.svg" },
     {
         id: "EN",
         title: "Английский",
         img: "/languages/eng.svg",
         imgRounded: "/languages/engr.svg",
     },
+    { id: "RU", title: "Русский", img: "/languages/ru.svg", imgRounded: "/languages/rur.svg" },
     { id: "DE", title: "Немецкий", img: "/languages/de.svg", imgRounded: "/languages/der.svg" },
     {
         id: "FR",
