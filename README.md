@@ -1,69 +1,74 @@
-# React + TypeScript + Vite
+# LexiGo - Умный Переводчик
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+LexiGo - это современный онлайн-переводчик с поддержкой:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   Мгновенного перевода текста
+-   Голосового воспроизведения
+-   Сохранения истории переводов
+-   Настройки языка и голоса
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   **Frontend**: React, TypeScript, Redux Toolkit, React router
+-   **Стили**: SCSS, CSS
+-   **UI**: Radix UI, MUI, Custom
+-   **API**: Интеграция с сервисом перевода Google
+-   **Инструменты**: Vite, ESLint
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Особенности
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+✨ Красивый интерфейс с плавными анимациями
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🔊 Озвучка перевода с выбором голоса (мужской/женский)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🔄 Смена языка перевода и переключение языков местами
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+✨ Авто-определение языка
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+📋 Копирование текста в буфер обмена
+
+📚 История переводов
+
+🌙 Темная/светлая тема
+
+## Как использовать
+
+**Переводчик (выделение)**
+
+1. Выделите текст на странице
+
+2. Язык текста определится автоматически
+
+3. Нажмите кнопку "Поменять языки (стрелка)" если нужно изменить направления перевода
+
+4. Выберите любой другой язык для направления перевода (по умолчанию RU)
+
+5. Выберите желаемый голос для озвучки в настройках
+
+**Перевод текста**
+
+1. Введите текст для перевода
+
+2. Выберите исходный и целевой языки
+
+3. Нажмите кнопку "Поменять языки" для быстрой смены направления перевода
+
+4. Используйте кнопку "Копировать" для сохранения текста
+
+5. Выберите желаемый голос для озвучки в настройках
+
+/src
+├── app # Index файлы приложения
+├── modules # Функциональные модули
+├── pages # Страницы приложения
+├── comnponents # Общие компоненты
+└── core # Ядро приложения (store/, hooks, router и т.д.)
+
+## Установка
+
+```bash
+npm install
+npm run dev
 ```

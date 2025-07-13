@@ -1,6 +1,8 @@
+
 import './tooltip-text-area.scss';
 import { Outlet } from 'react-router-dom';
 import {useCurrentTranslation} from "../../../modules/translation/hooks/useCurrentTranslation.ts";
+
 
 export const TooltipTextArea = () => {
     const tr = useCurrentTranslation();
@@ -8,7 +10,7 @@ export const TooltipTextArea = () => {
     let content: React.ReactNode;
 
     if (!tr) {
-        content = 'Выделите текст';
+        content = "Выделите текст";
     } else if (tr.loading) {
         content = <>⏳ Переводим…</>;
     } else if (tr.error) {
