@@ -87,6 +87,7 @@ export const TextAreaContent = () => {
             {(showTrigger || popoverOpen) && (
                 <div ref={wrapperRef}>
                     <Tooltip
+                        translateMutation={translate}
                         showTrigger={showTrigger}
                         style={{ position: "absolute", left: coords.x, top: coords.y }}
                         isLoading={isLoading}

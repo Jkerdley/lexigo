@@ -3,16 +3,29 @@ import { LanguageSelector } from "../LanguageSelector/LanguageSelector";
 import "./language-switch-container.scss";
 import { LANGUAGES } from "../../constants/languages";
 
+import { useAppSelector } from "../../../../core/store/store";
+import { type TranslateRequest } from "../../../translation/api/service";
+
 interface Props {
+    translate: (payload: TranslateRequest) => void;
     isAbleToSwitch?: boolean;
 }
-export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
+export const LanguageSwitchContainer = ({ translate, isAbleToSwitch }: Props) => {
     const [sourceLanguage, setSourceLanguage] = useState<string>("EN");
     const [targetLanguage, setTargetLanguage] = useState<string>("RU");
+    const currentTranslation = useAppSelector((state) => state.currentTranslation.current);
 
     const switchLanguage = () => {
         setSourceLanguage(targetLanguage);
         setTargetLanguage(sourceLanguage);
+
+        if (currentTranslation?.original) {
+            translate({
+                text: currentTranslation.original,
+                target: sourceLanguage,
+                source: targetLanguage,
+            });
+        }
     };
 
     const handleSourceChange = (newLanguage: string) => {
@@ -24,14 +37,21 @@ export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
     const handleTargetChange = (newLanguage: string) => {
         if (newLanguage !== sourceLanguage) {
             setTargetLanguage(newLanguage);
+
+            if (currentTranslation?.original) {
+                translate({
+                    text: currentTranslation.original,
+                    target: newLanguage,
+                    source: sourceLanguage,
+                });
+            }
         }
     };
+
     const disabledSourceLanguage = LANGUAGES.filter((lang) => lang.id !== sourceLanguage).map(
         (lang) => lang.id
     );
     const disabledTargetLanguage = [sourceLanguage];
-
-    console.log("langs", sourceLanguage, targetLanguage);
 
     return (
         <article className="language-switch-container">
@@ -60,5 +80,3 @@ export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
         </article>
     );
 };
-
-export default LanguageSwitchContainer;
