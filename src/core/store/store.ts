@@ -1,36 +1,31 @@
-import { configureStore } from "@reduxjs/toolkit";
-import {
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from 'redux-persist';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { api } from "./api/api";
-import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux";
-import settingsReducer from '../store/settingsSlice';
-// import someSlice from "./someSlice";
+import { persistReducer, persistStore  } from "redux-persist";
+import storage from 'redux-persist/lib/storage';
 
+const persistConfig = {
+    key: "root",
+    storage
+}
+
+const rootReducer = combineReducers({
+    [api.reducerPath]: api.reducer,
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const persistedSettings = settingsReducer;
 
 export const store = configureStore({
-    reducer: {
-        [api.reducerPath]: api.reducer,
-        settings: persistedSettings,
-        // someData: someSlice,
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-    }).concat(api.middleware),
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => 
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }).concat(api.middleware),
     devTools: true,
 });
 
-export const persistor = persistStore(store);
+export const persistedStore = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
