@@ -1,0 +1,48 @@
+.settings-base {
+    display: flex;
+    position: absolute;
+    gap: 0.25rem;
+    bottom: 16px;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 35px;
+    padding: 2px 5px;
+    font-size: 16px;
+    background: rgba(219, 226, 235, 1);
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    z-index: 1100;
+    cursor: pointer;
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    opacity: 100%;
+    transition: opacity 0.25s ease-in-out;
+
+    &:hover {
+        opacity: 100%;
+    }
+}
+
+.settings-base__option-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background: transparent;
+    height: 1.75rem;
+    border-radius: 1rem;
+    border: none;
+    transition: all 0.25s ease-in-out;
+    img {
+        height: 1rem;
+        background: transparent;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.15);
+        }
+    }
+    &:hover {
+        background: var(--bg-transparent--alt-accent);
+    }
+}
