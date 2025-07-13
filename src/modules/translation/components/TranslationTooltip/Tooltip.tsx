@@ -26,7 +26,7 @@ export const Tooltip = (props: TooltipProps) => {
             <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
                 <TooltipMenuButtons />
                 <div className="translator-main-content_container">
-                    <LanguageSwitchContainer isAbleToSwitch />
+                    <LanguageSwitchContainer isAbleToSwitch  />
                     <TooltipTextArea/>
                     <OptionsBar />
                     <Outlet />

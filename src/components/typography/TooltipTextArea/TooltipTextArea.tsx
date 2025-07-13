@@ -3,8 +3,8 @@ import {useCurrentTranslation} from "../../../modules/translation/hooks/useCurre
 
 export const TooltipTextArea = () => {
     const tr = useCurrentTranslation();
+    return <article className="tooltip-text-area">{tr?.translated} <Outlet /></article>;
 
-    return <article className="tooltip-text-area">{tr?.translated}</article>;
 };
 
 export default TooltipTextArea;
