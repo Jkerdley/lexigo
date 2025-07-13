@@ -6,8 +6,10 @@ export interface Current {
     from: string;
     to: string;
     gender?: "FEMALE" | "MALE" | "NEUTRAL";
-    translated: string;
+    translated?: string;
     audio?: string;
+    loading: boolean;
+    error?: string;
     ts: number;
 }
 interface State {
@@ -20,9 +22,20 @@ const slice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addMatcher(api.endpoints.translate.matchPending, (state, { meta }) => {
+            const args = (meta.arg as { originalArgs: TranslateRequest }).originalArgs;
+            state.current = {
+                original: args.text,
+                from: args.source ?? "",
+                to: args.target ?? "ru",
+                gender: args.gender ?? "FEMALE",
+                loading: true,
+                ts: Date.now(),
+            };
+        });
         builder.addMatcher(api.endpoints.translate.matchFulfilled, (state, { meta, payload }) => {
             const args = (meta.arg as { originalArgs: TranslateRequest }).originalArgs;
-            const { text, source = '', target = 'ru', gender = 'FEMALE' } = args;
+            const { text, source = "", target = "ru", gender = "FEMALE" } = args;
 
             state.current = {
                 original: text,
@@ -31,6 +44,19 @@ const slice = createSlice({
                 gender,
                 translated: payload.translatedText,
                 audio: payload.audioContent,
+                loading: false,
+                ts: Date.now(),
+            };
+        });
+        builder.addMatcher(api.endpoints.translate.matchRejected, (state, { error, meta }) => {
+            const args = (meta.arg as { originalArgs: TranslateRequest }).originalArgs;
+            state.current = {
+                original: args.text,
+                from: args.source ?? "",
+                to: args.target ?? "ru",
+                gender: args.gender ?? "FEMALE",
+                loading: false,
+                error: error?.message ?? "Ошибка перевода",
                 ts: Date.now(),
             };
         });
