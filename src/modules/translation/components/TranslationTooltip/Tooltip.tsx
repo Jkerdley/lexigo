@@ -10,27 +10,22 @@ interface TooltipProps {
     translatedText?: string | null;
     isLoading?: boolean;
     style?: React.CSSProperties;
+    showTrigger?: boolean;
 }
-export const Tooltip = ({
-                            handleClick,
-                            style,
-                            translatedText,
-                            isLoading,
-                        }: TooltipProps) => (
+export const Tooltip = ({ showTrigger, handleClick, style, translatedText, isLoading }: TooltipProps) => (
     <Popover.Root>
-        <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
-            <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
-        </Popover.Trigger>
+        {showTrigger && (
+            <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
+                <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
+            </Popover.Trigger>
+        )}
+
         <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
             <TooltipMenuButtons />
             <div className="translator-main-content_container">
                 <LanguageSwitchContainer />
                 <TooltipTextArea
-                    value={
-                        isLoading ? 'Переводим…'
-                            : translatedText ? translatedText
-                                : 'Выделите текст'
-                    }
+                    value={isLoading ? "Переводим…" : translatedText ? translatedText : "Выделите текст"}
                 />
                 <Outlet />
             </div>
