@@ -1,6 +1,8 @@
-import "./tooltip-text-area.scss";
-import { Outlet } from "react-router-dom";
-import { useCurrentTranslation } from "../../../modules/translation/hooks/useCurrentTranslation.ts";
+
+import './tooltip-text-area.scss';
+import { Outlet } from 'react-router-dom';
+import {useCurrentTranslation} from "../../../modules/translation/hooks/useCurrentTranslation.ts";
+
 
 export const TooltipTextArea = () => {
     const tr = useCurrentTranslation();
