@@ -5,6 +5,7 @@ import { LanguageSwitchContainer } from "../../../languages/components";
 import { TooltipTextArea } from "../../../../components/typography";
 import { Outlet } from "react-router-dom";
 import type { TranslateRequest } from "../../api/service";
+import { OptionsBar } from "../../../settings";
 
 interface TooltipProps {
     translateMutation: (payload: TranslateRequest) => void;
@@ -37,6 +38,7 @@ export const Tooltip = (props: TooltipProps) => {
                                 : "Ошибка: Выделите текст"
                         }
                     />
+                    <OptionsBar />
                     <Outlet />
                 </div>
                 <Popover.Arrow className="tooltip-arrow" />
