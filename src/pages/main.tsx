@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { TextAreaContent } from "../components/typography";
-import { Tooltip } from "../modules/translation/components";
 import "./main-page.scss";
 export const Main = () => {
     return (

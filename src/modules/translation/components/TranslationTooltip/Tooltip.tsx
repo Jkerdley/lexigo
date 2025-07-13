@@ -4,9 +4,10 @@ import TooltipMenuButtons from "../TooltipMenuButtons/TooltipMenuButtons";
 import { LanguageSwitchContainer } from "../../../languages/components";
 import { TooltipTextArea } from "../../../../components/typography";
 import { Outlet } from "react-router-dom";
+
 export const Tooltip = () => (
     <Popover.Root>
-        <Popover.Trigger className="popover-trigger">
+        <Popover.Trigger style={style} onClick={handleClick} className="popover-trigger">
             <img className="popover-trigger__logo" src="/heart.svg" alt="logo" />
         </Popover.Trigger>
         <Popover.Content align="center" className="translator-tooltip" sideOffset={5}>
