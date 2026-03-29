@@ -8,7 +8,6 @@ export const AppRouter = () => {
     const renderWithRoutes = useCallback((route: RouteProps) => {
         const element = (
             <Suspense fallback={"...загрузка"}>
-                {/* сюда можем подкрутить лоадер/спинер */}
                 {route.element}
             </Suspense>
         );

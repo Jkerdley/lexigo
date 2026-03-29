@@ -1,33 +1,31 @@
-import { useState } from "react";
 import { LanguageSelector } from "../LanguageSelector/LanguageSelector";
 import "./language-switch-container.scss";
 import { LANGUAGES } from "../../constants/languages";
-
-import { useAppSelector } from "../../../../core/store/store";
-
-import { useTranslate } from "../../../translation/hooks/useTranslation.ts";
-
+import { useAppSelector, useAppDispatch } from "../../../../core/store/store";
+import { useTranslate } from "../../../translation/hooks/useTranslation";
+import { setSourceLang, setTargetLang, swapLangs } from "../../../../core/store/settingsSlice";
 interface Props {
     isAbleToSwitch?: boolean;
 }
-export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
-    const [sourceLanguage, setSourceLanguage] = useState<string>("EN");
-    const [targetLanguage, setTargetLanguage] = useState<string>("RU");
-    const currentTranslation = useAppSelector((state) => state.currentTranslation.current);
-    const gender = useAppSelector((s) => s.settings.gender);
-    const autoPlayVoice = useAppSelector((s) => s.settings.autoPlayVoice);
 
+export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
+    const dispatch = useAppDispatch();
+    
+    const settings = useAppSelector((s) => s.settings);
+    const sourceLang = settings.sourceLang || "EN";
+    const targetLang = settings.targetLang || "RU";
+    const { gender, autoPlayVoice } = settings;
+
+    const currentTranslation = useAppSelector((state) => state.currentTranslation.current);
     const { translate } = useTranslate(autoPlayVoice);
 
     const switchLanguage = () => {
-        setSourceLanguage(targetLanguage);
-        setTargetLanguage(sourceLanguage);
-
+        dispatch(swapLangs());
         if (currentTranslation?.original) {
             translate({
                 text: currentTranslation.original,
-                target: sourceLanguage,
-                source: targetLanguage,
+                target: sourceLang, 
+                source: targetLang, 
                 speak: true,
                 gender,
             });
@@ -35,20 +33,19 @@ export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
     };
 
     const handleSourceChange = (newLanguage: string) => {
-        if (newLanguage !== targetLanguage) {
-            setSourceLanguage(newLanguage);
+        if (newLanguage !== targetLang) {
+            dispatch(setSourceLang(newLanguage));
         }
     };
 
     const handleTargetChange = (newLanguage: string) => {
-        if (newLanguage !== sourceLanguage) {
-            setTargetLanguage(newLanguage);
-
+        if (newLanguage !== sourceLang) {
+            dispatch(setTargetLang(newLanguage));
             if (currentTranslation?.original) {
                 translate({
                     text: currentTranslation.original,
                     target: newLanguage,
-                    source: sourceLanguage,
+                    source: sourceLang,
                     speak: true,
                     gender,
                 });
@@ -56,31 +53,23 @@ export const LanguageSwitchContainer = ({ isAbleToSwitch }: Props) => {
         }
     };
 
-    const disabledSourceLanguage = LANGUAGES.filter((lang) => lang.id !== sourceLanguage).map(
-        (lang) => lang.id
-    );
-    const disabledTargetLanguage = [sourceLanguage];
+    const disabledSourceLanguage = LANGUAGES.filter((lang) => lang.id !== sourceLang).map((lang) => lang.id);
+    const disabledTargetLanguage = [sourceLang];
 
     return (
         <article className="language-switch-container">
             <img className="language-switch-container__logo" src="/LexiGo3.svg" alt="logo" />
             <div className="languages-container">
                 <LanguageSelector
-                    language={sourceLanguage}
+                    language={sourceLang}
                     callback={handleSourceChange}
                     disabledLanguages={disabledSourceLanguage}
                 />
                 {isAbleToSwitch && (
-                    <img
-                        className="swap-button"
-                        src="/Arrow 1.svg"
-                        alt="Поменять языки местами"
-                        onClick={switchLanguage}
-                    />
+                    <img className="swap-button" src="/Arrow 1.svg" alt="Swap" onClick={switchLanguage} />
                 )}
-
                 <LanguageSelector
-                    language={targetLanguage}
+                    language={targetLang}
                     callback={handleTargetChange}
                     disabledLanguages={disabledTargetLanguage}
                 />

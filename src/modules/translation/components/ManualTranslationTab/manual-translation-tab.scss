@@ -1,0 +1,57 @@
+.text-areas-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.input-textarea,
+.output-textarea {
+  flex: 1;
+  width: 100%;
+  border-radius: 15px;
+  padding: 1rem;
+  background: var(--bg-text-area-light);
+  backdrop-filter: blur(15px);
+  color: var(--text-dark);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid transparent;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+  resize: none;
+
+  &:focus {
+    outline: none;
+    border-color: rgba(236, 81, 133, 0.4);
+    background: var(--bg-light);
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 10px;
+  }
+}
+
+.output-textarea {
+  background: var(--bg-transparent);
+  overflow-y: auto;
+
+  .placeholder {
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  .translated-text {
+    font-weight: 500;
+  }
+}
