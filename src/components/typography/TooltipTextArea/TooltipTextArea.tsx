@@ -20,7 +20,7 @@ export const TooltipTextArea = () => {
     return (
         <article className="tooltip-text-area">
             {content}
-            <Outlet />
+            {/* <Outlet /> */}
         </article>
     );
 };
