@@ -1,34 +1,23 @@
-import { TooltipMenuButton } from "../../../../components/buttons";
+import { NavLink } from "react-router-dom";
 import "./tooltip-menu-buttons.scss";
-import { RoutePath } from "../../../../core/router/routeConfig"
-import { useState } from "react";
-export const TooltipMenuButtons = () => {
+import "../../../../components/buttons/styles/tooltip-menu-button.scss"; 
+import { RoutePath, AppRoutes } from "../../../../core/router/routeConfig";
 
-  const [activePage, setActivePage] = useState(RoutePath.main);
+export const TooltipMenuButtons = () => {
+    const getClassName = (position: string) => ({ isActive }: { isActive: boolean }) => 
+        `tooltip-menu_container_button ${position} ${isActive ? 'active' : ''}`;
 
     return (
         <article className="tooltip-menu_container">
-            <TooltipMenuButton 
-              title="Переводчик" 
-              isActive 
-              pathTo={RoutePath.main}
-              isActive={activePage === RoutePath.main}
-              onClick={() => setActivePage(RoutePath.main)}
-            />
-            <TooltipMenuButton 
-              title="Перевод текста" 
-              pathTo={RoutePath.translation}
-              isActive={activePage === RoutePath.translation}
-              onClick={() => setActivePage(RoutePath.translation)}
-            />
-            <TooltipMenuButton 
-              title="История" 
-              pathTo={RoutePath.history}
-              isActive={activePage === RoutePath.history}
-              onClick={() => setActivePage(RoutePath.history)}
-            />
+            <NavLink to={`/${RoutePath[AppRoutes.MAIN]}`} className={getClassName('left')}>
+                Переводчик
+            </NavLink>
+            <NavLink to={`/${RoutePath[AppRoutes.TRANSLATION]}`} className={getClassName('center')}>
+                Перевод текста
+            </NavLink>
+            <NavLink to={`/${RoutePath[AppRoutes.HISTORY]}`} className={getClassName('right')}>
+                История
+            </NavLink>
         </article>
     );
 };
-
-export default TooltipMenuButtons;

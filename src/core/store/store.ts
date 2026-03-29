@@ -8,28 +8,28 @@ import currentTranslationReducer from "../../modules/translation/store/translati
 import { historySlice } from "../../modules/history/store/historySlice";
 
 const persistConfig = {
-    key: "root",
-    storage,
+  key: "root",
+  storage,
 };
 
 const persistedSettings = settingsReducer;
 
 const rootReducer = combineReducers({
-    [api.reducerPath]: api.reducer,
-    settings: persistedSettings,
-    currentTranslation: currentTranslationReducer,
-    history: historySlice.reducer,
+  [api.reducerPath]: api.reducer,
+  settings: persistedSettings,
+  currentTranslation: currentTranslationReducer,
+  history: historySlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: false,
-        }).concat(api.middleware),
-    devTools: true,
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(api.middleware),
+  devTools: true,
 });
 
 export const persistedStore = persistStore(store);

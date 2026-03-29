@@ -1,59 +1,42 @@
 import "./text-area-content.scss";
-import { Tooltip } from "..";
-
-import { useRef, useState } from "react";
+import { Tooltip } from "../TranslationTooltip/Tooltip";
+import { useRef, useState, useMemo } from "react";
 import { useTranslate } from "../../hooks/useTranslation";
 import { useAppSelector } from "../../../../core/store/store";
 import { useClickOutside } from "../../../../core/hooks/useClickOutside";
+import { useTextSelection } from "../../hooks/useTextSelection";
 
 export const TextAreaContent = () => {
-    const [selection, setSelection] = useState<string>("");
     const [popoverOpen, setPopoverOpen] = useState(false);
-    const [coords, setCoords] = useState({ x: 0, y: 0 });
-
-    const textRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const autoPlayVoice = useAppSelector((s) => s.settings.autoPlayVoice);
     const gender = useAppSelector((s) => s.settings.gender);
     const { translate, isLoading } = useTranslate(autoPlayVoice);
 
+    const { selection, coords, textRef, handleTextSelection, clearSelection } = useTextSelection();
+
     const showTrigger = !!selection;
 
+    const clickOutsideRefs = useMemo(() => [textRef, wrapperRef], [textRef, wrapperRef]);
+
     useClickOutside(
-        [textRef, wrapperRef],
+        clickOutsideRefs,
         () => {
             setPopoverOpen(false);
-            setSelection("");
+            clearSelection();
         },
         showTrigger || popoverOpen
     );
 
-    const onTextSelection = () => {
-        const sel = window.getSelection()?.toString().trim() || "";
-        if (!sel) {
-            setSelection("");
-            return;
-        }
-        const range = window.getSelection()!.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-        const parentRect = textRef.current!.getBoundingClientRect();
-
-        setCoords({
-            x: rect.left - parentRect.left + rect.width / 2,
-            y: rect.top - parentRect.top - 10,
-        });
-        setSelection(sel);
-    };
-
     const onTriggerClick = () => {
-        translate({ text: selection, target: "ru", gender, speak: true});
+        translate({ text: selection, target: "ru", gender, speak: true });
         setPopoverOpen(true);
     };
 
     return (
         <section className="text-area-content__container">
-            <div ref={textRef} className="text-area-content__container__text" onMouseUp={onTextSelection}>
+            <div ref={textRef} className="text-area-content__container__text" onMouseUp={handleTextSelection}>
                 Being a frontend developer can often feel like standing at the intersection of design and
                 engineering. Unlike many other technical roles, frontend work demands not only deep technical
                 expertise but also a strong sense of aesthetics and user experience. You have to turn complex
@@ -85,8 +68,9 @@ export const TextAreaContent = () => {
                         style={{ position: "absolute", left: coords.x, top: coords.y }}
                         isLoading={isLoading}
                         handleClick={onTriggerClick}
-                    >
-                    </Tooltip>
+                        isOpen={popoverOpen}         
+                        setIsOpen={setPopoverOpen}   
+                    />
                 </div>
             )}
         </section>
