@@ -10,7 +10,6 @@ export const TooltipMenuButtons = () => {
         <article className="tooltip-menu_container">
             <TooltipMenuButton 
               title="Переводчик" 
-              isActive 
               pathTo={RoutePath.main}
               isActive={activePage === RoutePath.main}
               onClick={() => setActivePage(RoutePath.main)}
