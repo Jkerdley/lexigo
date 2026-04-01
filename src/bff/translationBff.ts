@@ -17,7 +17,7 @@ export const mockTranslateApi = async (body: TranslateRequest): Promise<Translat
 
     const data = await response.json();
 
-    const translatedText = data[0].map((item: any) => item[0]).join("");
+    const translatedText = data[0].map((item: string[]) => item[0]).join("");
 
     return {
       translatedText,

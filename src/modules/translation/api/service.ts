@@ -23,8 +23,13 @@ export const api = createApi({
         try {
           const result = await mockTranslateApi(arg);
           return { data: result };
-        } catch (error: any) {
-          return { error: { status: "CUSTOM_ERROR", error: error.message || "Не удалось перевести" } };
+        } catch (error) {
+          return {
+            error: {
+              status: "CUSTOM_ERROR",
+              error: error instanceof Error ? error.message : "Не удалось перевести",
+            },
+          };
         }
       },
     }),

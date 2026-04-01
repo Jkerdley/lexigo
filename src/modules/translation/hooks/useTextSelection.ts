@@ -6,13 +6,13 @@ export const useTextSelection = () => {
   const textRef = useRef<HTMLDivElement>(null);
 
   const handleTextSelection = () => {
-    const sel = window.getSelection()?.toString().trim() || "";
+    const sel = getSelection()?.toString().trim() || "";
     if (!sel) {
       setSelection("");
       return;
     }
 
-    const range = window.getSelection()!.getRangeAt(0);
+    const range = getSelection()!.getRangeAt(0);
     const rect = range.getBoundingClientRect();
 
     if (textRef.current) {
