@@ -1,5 +1,5 @@
 import { TextAreaContent } from "../components/typography";
-import "./main-page.scss";
+import "./MainPage.scss";
 export const Main = () => {
     return (
         <main className="main-page__container">

@@ -1,11 +1,11 @@
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import "./styles/index.css";
-import App from "./App.tsx";
-import { store, persistedStore } from "../core/store/store.ts";
+import "./index.css";
+import { store, persistedStore } from "./core/store/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider } from "../core/providers/themeProvider.tsx";
+import { ThemeProvider } from "./core/providers/themeProvider.tsx";
+import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <Router>

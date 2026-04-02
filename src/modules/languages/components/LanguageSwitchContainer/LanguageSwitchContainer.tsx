@@ -1,5 +1,5 @@
 import { LanguageSelector } from "../LanguageSelector/LanguageSelector";
-import "./language-switch-container.scss";
+import "./LanguageSwitchContainer.scss";
 import { LANGUAGES } from "../../constants/languages";
 import { useAppSelector, useAppDispatch } from "../../../../core/store/store";
 import { useTranslate } from "../../../translation/hooks/useTranslation";

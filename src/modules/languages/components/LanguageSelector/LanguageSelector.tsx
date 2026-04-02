@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { LANGUAGES } from "../../constants/languages";
-import "./language-selector.scss";
+import "./LanguageSelector.scss";
 
 interface Props {
     language: string;

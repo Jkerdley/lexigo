@@ -1,2 +1,2 @@
-export { Main } from "./main.tsx";
-export { TranslatePage } from "./translatePage.tsx";
+export { Main } from "./MainPage.tsx";
+export { TranslatePage } from "./TranslationPage.tsx";

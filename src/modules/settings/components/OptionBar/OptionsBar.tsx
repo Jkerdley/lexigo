@@ -1,6 +1,6 @@
 import { useTheme } from "../../../../core/hooks/useTheme";
 import { SettingsDial } from "../SettingsDial/SettingsDial";
-import "./options-bar.scss";
+import "./OptionsBar.scss";
 
 import {useCurrentTranslation} from "../../../translation/hooks/useCurrentTranslation";
 import {useTranslateMutation} from "../../../translation/api/service";

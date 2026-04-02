@@ -1,11 +1,14 @@
 import { NavLink } from "react-router-dom";
-import "./tooltip-menu-buttons.scss";
-import "../../../../components/buttons/styles/tooltip-menu-button.scss"; 
+import classNames from "classnames";
 import { RoutePath, AppRoutes } from "../../../../core/router/routeConfig";
+import "./tooltip-menu-buttons.scss";
+import "../../../../components/buttons/styles/tooltip-menu-button.scss";
 
 export const TooltipMenuButtons = () => {
-    const getClassName = (position: string) => ({ isActive }: { isActive: boolean }) => 
-        `tooltip-menu_container_button ${position} ${isActive ? 'active' : ''}`;
+    const getClassName = (position: string) => ({ isActive }: { isActive: boolean }) =>
+        classNames("tooltip-menu_container_button", position, {
+            active: isActive,
+        });
 
     return (
         <article className="tooltip-menu_container">
