@@ -2,8 +2,8 @@
   background: var(--bg-dark);
   color: var(--text-light);
   border: none;
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   padding: 0.5rem;
   border-radius: 50%;
   cursor: pointer;
@@ -35,7 +35,7 @@
   box-shadow: var(--shadow-lg);
   overflow: hidden;
   z-index: 1000;
-  /* box-shadow: var(--shadow-md) */
+  box-shadow: var(--shadow-md);
 }
 
 .translator-main-content_container {

@@ -19,19 +19,19 @@ export const RoutePath: Record<AppRoutes, string> = {
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MAIN]: {
-        path: RoutePath.main,
-        element: <TranslationTab /> 
+        path: RoutePath[AppRoutes.MAIN],
+        element: <TranslationTab />,
     },
     [AppRoutes.TRANSLATION]: {
-        path: RoutePath.translation,
+        path: RoutePath[AppRoutes.TRANSLATION],
         element: <ManualTranslationTab />,
     },
     [AppRoutes.HISTORY]: {
-        path: RoutePath.history,
+        path: RoutePath[AppRoutes.HISTORY], 
         element: <HistoryList />,
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath[AppRoutes.NOT_FOUND],
-        element: <div>Страница не найдена</div>
+        element: <div>Страница не найдена</div>,
     },
 };
